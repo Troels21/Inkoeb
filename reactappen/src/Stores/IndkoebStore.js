@@ -15,7 +15,7 @@ class IndkoebStore {
         )
     }
 
-    fetchapi() {
+    async fetchapi() {
         if (!this.changes) {
             fetch("http://localhost:8080/api/vare"
             ).then(
@@ -25,16 +25,30 @@ class IndkoebStore {
                         this.renderhack.push("");
                         this.renderhack.pop();
                     })));
-        }
-        else{
-
+        } else {
+            fetch('http://localhost:8080/api/vare', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.Indkoebsliste)
+            }).then(resp => console.log(resp)).then(
+                await fetch("http://localhost:8080/api/vare"
+                ).then(
+                    async (response) => await response.json().then(
+                        (json) => runInAction(async () => {
+                            this.Indkoebsliste = await json.vareliste;
+                            this.renderhack.push("");
+                            this.renderhack.pop();
+                        }))));
         }
     }
 
 
     addToIndKoebsListe = (dims) => {
         if (dims.length > 0) {
-            this.changes=true;
+            this.changes = true;
             let feed = {"name": dims}
             this.Indkoebsliste.push(feed);
             this.renderhack.push("");
@@ -43,7 +57,7 @@ class IndkoebStore {
     }
 
     deleteIndkoebItem = (key) => {
-        this.changes=true;
+        this.changes = true;
         this.Indkoebsliste.splice(key, 1); // 2nd parameter means remove one item only
         this.renderhack.push("")
         this.renderhack.pop();
