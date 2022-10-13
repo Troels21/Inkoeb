@@ -7,7 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 
 
-
+//test
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("vare")
