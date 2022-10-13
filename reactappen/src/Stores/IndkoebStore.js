@@ -32,7 +32,7 @@ class IndkoebStore {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.Indkoebsliste)
+                body: '{"vareliste" : '+JSON.stringify(this.Indkoebsliste)+'}'
             }).then(resp => console.log(resp)).then(
                 await fetch("http://localhost:8080/api/vare"
                 ).then(

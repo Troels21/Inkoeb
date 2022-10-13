@@ -2,15 +2,17 @@ package Service;
 
 import Model.ListeVare;
 import Model.Vare;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import com.google.gson.Gson;
+
 
 
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 @Path("vare")
 public class vareService {
+    Gson gson = new Gson();
     //TODO: replace with real database
     public ListeVare makeVare() {
         Vare vare1 = new Vare("vand");
@@ -29,7 +31,15 @@ public class vareService {
     }
 
     @GET
-    public ListeVare getGiraffes() {
+    public ListeVare getVare() {
         return makeVare();
+    }
+
+    @POST
+    public String postVare(String s){
+
+        ListeVare varliste = gson.fromJson(s,ListeVare.class);
+        System.out.println(varliste.toString());
+        return "thanks";
     }
 }
