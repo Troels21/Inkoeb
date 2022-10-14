@@ -35,7 +35,7 @@ jobs:
       - name: Deploy app
         env: 
           APP_NAME: 'indkoeb'
-          APP_URL: 'https://indkoeb.troelskiib.dk/'
+          APP_URL: 'https://troelskiib.dk/'
           IMAGE_NAME: 'troels21/indkoeb:${{github.run_number}}'
         run: 
          'caprover deploy --caproverUrl=$APP_URL --caproverPassword=${{ secrets.CAPROVER_PASSWORD }} --imageName=$IMAGE_NAME --appName=$APP_NAME'
