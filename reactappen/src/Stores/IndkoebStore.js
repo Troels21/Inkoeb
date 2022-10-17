@@ -17,7 +17,7 @@ class IndkoebStore {
 
     async fetchapi() {
         if (!this.changes) {
-            fetch("http://srv-captain--backend/api/vare"
+            fetch("https://backend.troelskiib.dk/api/vare"
             ).then(
                 async (response) => await response.json().then(
                     (json) => runInAction(async () => {
@@ -26,7 +26,7 @@ class IndkoebStore {
                         this.renderhack.pop();
                     })));
         } else {
-            fetch('http://srv-captain--backend/api/vare', {
+            fetch('https://backend.troelskiib.dk/api/vare', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -34,7 +34,7 @@ class IndkoebStore {
                 },
                 body: '{"vareliste" : ' + JSON.stringify(this.Indkoebsliste) + '}'
             }).then(resp => console.log(resp)).then(
-                await fetch("http://srv-captain--backend/api/vare"
+                await fetch("https://backend.troelskiib.dk/api/vare/vare"
                 ).then(
                     async (response) => await response.json().then(
                         (json) => runInAction(async () => {
@@ -46,7 +46,7 @@ class IndkoebStore {
     }
 
     postAPI(name){
-        fetch('http://srv-captain--backend/api/vare/single', {
+        fetch('https://backend.troelskiib.dk/api/vare/single', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -59,7 +59,7 @@ class IndkoebStore {
         console.log(this.Indkoebsliste)
         console.log(index)
         console.log(this.Indkoebsliste[index])
-        fetch('http://srv-captain--backend/api/vare', {
+        fetch('https://backend.troelskiib.dk/api/vare', {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'
             }, body : this.Indkoebsliste[index].name
