@@ -1,13 +1,19 @@
 package Model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 
-@Data public class Vare {
-     String name;
+@Entity
+@Table(name = "DBVARE")
+@Data
+public class Vare {
+    @Id
+    @Column(name = "name")
+    String name;
 
-    public Vare(String name) {
-        this.name = name;
+    public Vare() {
+
     }
 }
 

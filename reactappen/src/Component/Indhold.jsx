@@ -29,8 +29,8 @@ const Indhold = () => {
                 {indkoebStore.indKoebItemList}
             </Grid>
             <Grid item xs={12}/>
-            <Grid item xs={5}> <TextField id={"textfelt"}> </TextField></Grid>
-            <Grid item xs={3}> <Button onClick={clickInset} variant={"contained"}>indsæt til
+            <Grid item xs={6}> <TextField id={"textfelt"}> </TextField></Grid>
+            <Grid item xs={6}> <Button onClick={clickInset} variant={"contained"}>indsæt til
                 indkøbslisten</Button></Grid>
             {indkoebStore.renderhack}
 

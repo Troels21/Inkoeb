@@ -21,7 +21,7 @@ class IndkoebStore {
             ).then(
                 async (response) => await response.json().then(
                     (json) => runInAction(async () => {
-                        this.Indkoebsliste = await json.vareliste;
+                        this.Indkoebsliste = await json;
                         this.renderhack.push("");
                         this.renderhack.pop();
                     })));
@@ -32,23 +32,45 @@ class IndkoebStore {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: '{"vareliste" : '+JSON.stringify(this.Indkoebsliste)+'}'
+                body: '{"vareliste" : ' + JSON.stringify(this.Indkoebsliste) + '}'
             }).then(resp => console.log(resp)).then(
                 await fetch("http://localhost:8080/api/vare"
                 ).then(
                     async (response) => await response.json().then(
                         (json) => runInAction(async () => {
-                            this.Indkoebsliste = await json.vareliste;
+                            this.Indkoebsliste = await json;
                             this.renderhack.push("");
                             this.renderhack.pop();
                         }))));
         }
     }
 
+    postAPI(name){
+        fetch('http://localhost:8080/api/vare/single', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: name});
+    }
+
+    deletefromdatabase(index) {
+        console.log(this.Indkoebsliste)
+        console.log(index)
+        console.log(this.Indkoebsliste[index])
+        fetch('http://localhost:8080/api/vare', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'
+            }, body : this.Indkoebsliste[index].name
+    }).then((resp)=> this.deleteIndkoebItem(index));
+    }
+
 
     addToIndKoebsListe = (dims) => {
         if (dims.length > 0) {
             this.changes = true;
+            this.postAPI(dims)
             let feed = {"name": dims}
             this.Indkoebsliste.push(feed);
             this.renderhack.push("");

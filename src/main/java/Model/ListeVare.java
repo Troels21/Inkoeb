@@ -9,8 +9,17 @@ import java.util.List;
 public class ListeVare {
     List<Vare> vareliste = new ArrayList<>();
 
+
     public void addVare(Vare vare){
         vareliste.add(vare);
+    }
+
+    public Vare getVare(int index){
+        return vareliste.get(index);
+    }
+
+    public int getSize(){
+        return vareliste.size();
     }
 }
 
