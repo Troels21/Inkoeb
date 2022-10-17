@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
 
 public class dbTest {
-    @Test
+   /*@Test
     public void testCreate(){
         HibernateController hibernateController =
                 new HibernateController("pos-db.troelskiib.dk:6543/data");
@@ -22,5 +22,5 @@ public class dbTest {
         System.out.println("Read user back: " + readVare.toString());
         readTransaction.commit();
         session.close();
-    }
+    }*/
 }

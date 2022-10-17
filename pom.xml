@@ -30,7 +30,7 @@
                     <transformers>
                         <!-- Packs dependencies -->
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>Main</mainClass>
+                            <mainClass>launch.Main</mainClass>
                         </transformer>
                         <!-- includes Services in jar-->
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
