@@ -9,6 +9,7 @@ WORKDIR /tmp
 COPY /reactappen/package.json  ./
 COPY /reactappen/src ./src
 COPY /reactappen/public ./public
+
 RUN yarn install
 RUN yarn build
 
@@ -16,5 +17,6 @@ FROM openjdk:18-alpine
 WORKDIR /tmp
 COPY --from=MAVEN /tmp/target ./
 COPY --from=REACT /tmp/build ./src/main/webapp/
+
 EXPOSE 8080
 CMD ["java","-Xmx1024m", "-jar", "/tmp/testapplikation.jar"]
