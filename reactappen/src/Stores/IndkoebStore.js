@@ -38,7 +38,10 @@ class IndkoebStore {
                 },
                 body: '{"vareliste" : ' + JSON.stringify(this.Indkoebsliste) + '}'
             }).then(resp => console.log(resp)).then(
-                await fetch("https://backend.troelskiib.dk/api/vare"
+                await fetch("https://backend.troelskiib.dk/api/vare",{
+                        method: 'GET',
+                        mode: 'cors',
+                    }
                 ).then(
                     async (response) => await response.json().then(
                         (json) => runInAction(async () => {
