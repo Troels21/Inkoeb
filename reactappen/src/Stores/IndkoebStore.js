@@ -17,7 +17,10 @@ class IndkoebStore {
 
     async fetchapi() {
         if (!this.changes) {
-            fetch("https://backend.troelskiib.dk/api/vare"
+            fetch("https://backend.troelskiib.dk/api/vare",{
+                method: 'GET',
+                mode: 'cors',
+                }
             ).then(
                 async (response) => await response.json().then(
                     (json) => runInAction(async () => {
@@ -28,6 +31,7 @@ class IndkoebStore {
         } else {
             fetch('https://backend.troelskiib.dk/api/vare', {
                 method: 'POST',
+                mode: 'cors',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -48,6 +52,7 @@ class IndkoebStore {
     postAPI(name){
         fetch('https://backend.troelskiib.dk/api/vare/single', {
             method: 'POST',
+            mode: 'cors',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
