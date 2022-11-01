@@ -2,6 +2,7 @@ import {Button, Grid, TextField} from "@mui/material";
 import {indkoebStore} from "../Stores/IndkoebStore";
 import {observer} from "mobx-react-lite";
 import RefreshIcon from '@mui/icons-material/Refresh';
+import ListElement from "./ListElement";
 
 function clickInset() {
     indkoebStore.addToIndKoebsListe(document.getElementById("textfelt").value);
@@ -10,7 +11,6 @@ function clickInset() {
 
 
 const Indhold = () => {
-    indkoebStore.updateView()
 
     return (
         <Grid container
@@ -20,13 +20,18 @@ const Indhold = () => {
               style={{minHeight: '100vh'}}>
             <Grid item xs={5}>
                 <h1>Indkøbsliste </h1>
-                <Grid item xs={12}> <Button onClick={indkoebStore.fetchapi} variant={"contained"} startIcon={<RefreshIcon/>}>Upload and sync</Button></Grid>
+                <Grid item xs={12}> <Button onClick={()=>indkoebStore.fetchVarer()} variant={"contained"} startIcon={<RefreshIcon/>}>Upload and sync</Button></Grid>
             </Grid>
 
             <Grid item xs={12}/>
 
             <Grid item>
-                {indkoebStore.indKoebItemList}
+                {indkoebStore?.Indkoebsliste.map((el,index)=>
+                    <ListElement key={index}
+                                 name={el.name}
+                                 index={index}
+                    />)}
+
             </Grid>
             <Grid item xs={12}/>
             <Grid item xs={6}> <TextField id={"textfelt"}> </TextField></Grid>

@@ -3,7 +3,7 @@ import ListElement from "../Component/ListElement";
 
 
 class IndkoebStore {
-    Indkoebsliste;
+    Indkoebsliste = [];
     indKoebItemList;
     renderhack = [];
     changes = false;
@@ -15,6 +15,14 @@ class IndkoebStore {
         )
     }
 
+    async fetchVarer(){
+       const res = await fetch("https://backend.troelskiib.dk/api/vare",{
+            method: 'GET',
+            mode: 'cors',
+        });
+        this.Indkoebsliste = await res.json();
+    }
+/*
     async fetchapi() {
         if (!this.changes) {
             fetch("https://backend.troelskiib.dk/api/vare",{
@@ -50,7 +58,7 @@ class IndkoebStore {
                             this.renderhack.pop();
                         }))));
         }
-    }
+    }*/
 
     postAPI(name){
         fetch('https://backend.troelskiib.dk/api/vare/single', {
@@ -91,17 +99,6 @@ class IndkoebStore {
         this.Indkoebsliste.splice(key, 1); // 2nd parameter means remove one item only
         this.renderhack.push("")
         this.renderhack.pop();
-    }
-
-    async updateView() {
-        //Fetch all database
-        //Get Json with all names of indkøb
-        this.indKoebItemList = (this.Indkoebsliste.map((element, index) => {
-            return <ListElement key={index}
-                                name={element.name}
-                                index={index}
-            />
-        }));
     }
 
 }

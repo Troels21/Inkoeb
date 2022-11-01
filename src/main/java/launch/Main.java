@@ -21,6 +21,5 @@ public class Main {
         } catch (LifecycleException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

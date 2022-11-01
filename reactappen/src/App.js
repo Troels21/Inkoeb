@@ -4,7 +4,7 @@ import {indkoebStore} from "./Stores/IndkoebStore";
 
 
 function App() {
-    indkoebStore.fetchapi()
+    indkoebStore.fetchVarer()
     return (
         <Indhold/>
     );
