@@ -1,0 +1,63 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Frontend fungere således: Delete trial (Token er fået og bliver ført i header)
+
+actor    Udbyder            as udbyd
+boundary    Page        as page
+participant MobxStore as mobx
+
+
+participant HTTP as request
+
+autonumber
+group click edit trial
+
+udbyd -> page : click
+activate udbyd
+activate page
+page -> mobx : update
+activate mobx
+
+mobx -> mobx : modal state: true
+
+mobx -->> page : Show modal
+deactivate mobx
+
+page -->> udbyd
+deactivate page
+udbyd -> page : Click delete
+activate page
+page -> mobx : delete trial
+activate mobx
+mobx -> mobx : get trial id
+Group HTTP 200 ok
+mobx -> request : fetch Delete trial id
+activate request
+request -->> mobx : deleted trial
+
+mobx -> request : get all trials by ownerID
+request -->> mobx : all trial json
+
+deactivate request
+mobx -->> page : update page
+deactivate mobx
+page -->> udbyd
+deactivate page
+deactivate udbyd
+end
+Group HTTP 400
+
+activate request
+request -->> mobx: error
+deactivate request
+mobx -->> page: error
+page -->> udbyd
+end
+
+end
+
+
+
+
+@enduml

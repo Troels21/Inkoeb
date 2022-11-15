@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Backend fungere således ved alle http kald på endpoint
+
+participant    HTTP            as request
+participant    JWT_FITLER             as filter
+participant    EditTrialController    as controller
+participant    EditTrialService       as Service
+participant    EditTrialRepository    as Repo
+database        MySQL_Database        as db
+
+
+autonumber
+
+
+request -> filter :HTTP -  token header
+activate request
+activate filter
+
+filter -> filter : Validate token'
+
+
+group validation Error
+filter -->> request : Error
+
+end
+
+
+group validation success
+filter -> controller : get,post,delete,put
+deactivate filter
+
+activate controller
+controller -> Service : respektive metode
+activate Service
+Service -> Repo : JPA metoder
+activate Repo
+Repo -> db : DML command
+activate db
+db -->> Repo
+deactivate db
+Repo -->> Service
+deactivate Repo
+Service -->> controller
+deactivate Service
+controller -->> request
+deactivate controller
+end
+
+@enduml
