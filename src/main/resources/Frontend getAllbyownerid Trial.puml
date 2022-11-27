@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Frontend fungere således: Create new trial (Token er fået og bliver ført i header)
+
+actor    Udbyder            as udbyd
+boundary    Page        as page
+participant MobxStore as mobx
+
+
+participant HTTP as request
+autoactivate on
+
+autonumber
+udbyd -> page : Open
+page -> mobx :get all trials by ownerID
+mobx -> request : Fetch GET all trials by ownerID
+request -->> mobx : all trial json
+deactivate request
+mobx -->> page : update page
+deactivate mobx
+page -->> udbyd
+deactivate page
+deactivate udbyd
+
+Group HTTP 400
+
+
+
+
+@enduml
