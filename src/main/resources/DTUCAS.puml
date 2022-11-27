@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title DTU CAS Implementation
+
+actor    Bruger            as bruger
+participant    Frontend        as front
+participant    Backend        as back
+participant DTU_CAS_Server as DTU
+
+autonumber
+
+
+bruger -> front : Click dtu login
+
+activate front
+front -> back : HTTP GET /campusnet/login2
+activate back
+back --> front : DTU Cas service url
+deactivate back
+
+front -> front: Redirect url to DTU CAS service url
+front --> bruger
+deactivate front
+bruger -> front : write DTU Login info
+activate front
+front -> DTU : DTU login
+
+activate DTU
+DTU --> front : Ticket Forwarding
+deactivate DTU
+
+front -> back : Ticket Forwarding
+activate back
+back -> DTU : validate token
+activate DTU
+DTU --> back : DTU User Info
+deactivate DTU
+
+
+back -> back :Validate user info
+activate back
+back --> back
+deactivate back
+group validation success
+back -> back : Generate JWT
+activate back
+back --> back
+deactivate back
+back --> front: redirect url to /trials+JWT
+deactivate back
+front -> front : Extract and save JWT
+activate front
+front --> front: remove JWT from url
+deactivate front
+front --> bruger
+deactivate front
+
+end
+group validation Error
+back --> front : Not Authorized Exception
+front --> bruger
+
+end
+
+
+
+
+
+
+
+
+
+
+@enduml
